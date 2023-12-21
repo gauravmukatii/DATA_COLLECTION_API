@@ -6,15 +6,21 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "DC_KIDS")
+@Table(name = "IES_KIDS")
 public class KidsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer kidsId;
-    private Integer caseNum;
-    private Integer userId;
     private List<Kid> KidsList;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    @OneToOne
+    @JoinColumn(name = "case_num")
+    private AppEntity app;
 
     public Integer getKidsId() {
         return kidsId;
@@ -24,21 +30,6 @@ public class KidsEntity {
         this.kidsId = kidsId;
     }
 
-    public Integer getCaseNum() {
-        return caseNum;
-    }
-
-    public void setCaseNum(Integer caseNum) {
-        this.caseNum = caseNum;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public List<Kid> getKidsList() {
         return KidsList;
@@ -46,5 +37,21 @@ public class KidsEntity {
 
     public void setKidsList(List<Kid> kidsList) {
         KidsList = kidsList;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public AppEntity getApp() {
+        return app;
+    }
+
+    public void setApp(AppEntity app) {
+        this.app = app;
     }
 }

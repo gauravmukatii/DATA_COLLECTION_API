@@ -3,17 +3,23 @@ package in.ies_application.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "DC_INCOME")
+@Table(name = "IES_INCOME")
 public class IncomeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer incomeId;
-    private Integer caseNum;
-    private Integer userId;
     private Double salaryIncome;
     private Double propertyIncome;
     private Double rentIncome;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserEntity user;
+
+    @OneToOne
+    @JoinColumn(name = "case_num")
+    private AppEntity app;
 
     public Integer getIncomeId() {
         return incomeId;
@@ -23,21 +29,6 @@ public class IncomeEntity {
         this.incomeId = incomeId;
     }
 
-    public Integer getCaseNum() {
-        return caseNum;
-    }
-
-    public void setCaseNum(Integer caseNum) {
-        this.caseNum = caseNum;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public Double getSalaryIncome() {
         return salaryIncome;
@@ -61,5 +52,21 @@ public class IncomeEntity {
 
     public void setRentIncome(Double rentIncome) {
         this.rentIncome = rentIncome;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public AppEntity getApp() {
+        return app;
+    }
+
+    public void setApp(AppEntity app) {
+        this.app = app;
     }
 }

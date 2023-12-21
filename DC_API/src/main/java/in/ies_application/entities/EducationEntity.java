@@ -3,17 +3,23 @@ package in.ies_application.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "DC_EDU")
+@Table(name = "IES_EDUCATION")
 public class EducationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Eduid;
-    private Integer caseNum;
-    private Integer userId;
     private String higherDegree;
     private Integer graduationYear;
     private String uniName;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserEntity user;
+
+    @OneToOne
+    @JoinColumn(name="case_num")
+    private AppEntity app;
+
 
     public Integer getEduid() {
         return Eduid;
@@ -23,21 +29,6 @@ public class EducationEntity {
         Eduid = eduid;
     }
 
-    public Integer getCaseNum() {
-        return caseNum;
-    }
-
-    public void setCaseNum(Integer caseNum) {
-        this.caseNum = caseNum;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public String getHigherDegree() {
         return higherDegree;
@@ -62,4 +53,21 @@ public class EducationEntity {
     public void setUniName(String uniName) {
         this.uniName = uniName;
     }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public AppEntity getApp() {
+        return app;
+    }
+
+    public void setApp(AppEntity app) {
+        this.app = app;
+    }
+
 }

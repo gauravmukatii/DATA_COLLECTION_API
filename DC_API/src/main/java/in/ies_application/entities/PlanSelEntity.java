@@ -9,9 +9,15 @@ public class PlanSelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer planSelId;
-    private Integer caseNum;
     private Integer planId;
-    private Integer userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    @OneToOne
+    @JoinColumn(name = "case_num")
+    private AppEntity app;
 
     public Integer getPlanSelId() {
         return planSelId;
@@ -21,13 +27,6 @@ public class PlanSelEntity {
         this.planSelId = planSelId;
     }
 
-    public Integer getCaseNum() {
-        return caseNum;
-    }
-
-    public void setCaseNum(Integer caseNum) {
-        this.caseNum = caseNum;
-    }
 
     public Integer getPlanId() {
         return planId;
@@ -37,11 +36,20 @@ public class PlanSelEntity {
         this.planId = planId;
     }
 
-    public Integer getUserId() {
-        return userId;
+
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public AppEntity getApp() {
+        return app;
+    }
+
+    public void setApp(AppEntity app) {
+        this.app = app;
     }
 }
