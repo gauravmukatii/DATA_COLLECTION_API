@@ -15,7 +15,7 @@ public class CoNoticeEntity {
     private Integer noticeId;
     private Long caseNum;
     private Integer edTraceId;
-    private String coPdfUrl;
+    private String noticeUrl;
     private LocalDate printDate;
     private String noticeStatus;
     private LocalDate createdDate;
@@ -34,5 +34,45 @@ public class CoNoticeEntity {
 
     public void setCaseNum(Long caseNum) {
         this.caseNum = caseNum;
+    }
+
+    public Integer getEdTraceId() {
+        return edTraceId;
+    }
+
+    public void setEdTraceId(Integer edTraceId) {
+        this.edTraceId = edTraceId;
+    }
+
+    public String getNoticeUrl() {
+        return noticeUrl;
+    }
+
+    public void setNoticeUrl(String noticeUrl) {
+        this.noticeUrl = noticeUrl;
+    }
+
+    public LocalDate getPrintDate() {
+        return printDate;
+    }
+
+    public void setPrintDate(LocalDate printDate) {
+        this.printDate = printDate;
+    }
+
+    public String getNoticeStatus() {
+        return noticeStatus;
+    }
+
+    public void setNoticeStatus(String noticeStatus) {
+        this.noticeStatus = noticeStatus;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 }

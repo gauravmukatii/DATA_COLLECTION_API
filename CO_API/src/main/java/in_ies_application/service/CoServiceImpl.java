@@ -1,4 +1,6 @@
 package in_ies_application.service;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.PutObjectResult;
 import in_ies_application.Utilities.EmailUtils;
 import in_ies_application.entity.CoNoticeEntity;
 import in_ies_application.entity.EligEntity;
@@ -8,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.net.URL;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Service
 public class CoServiceImpl implements CoService {
@@ -21,11 +26,27 @@ public class CoServiceImpl implements CoService {
     @Autowired
     private EmailUtils emailUtils;
 
+    @Autowired
+    private AmazonS3 s3;
+
     @Override
     public void processPendingTriggers() {
         List<CoNoticeEntity> records = coNoticeRepo.findByNoticeStatus("P");
+
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+
         for(CoNoticeEntity entity: records){
-            processEachRecord(entity);
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        processEachRecord(entity);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+
         }
     }
 
@@ -54,11 +75,18 @@ public class CoServiceImpl implements CoService {
 
     private boolean updateProcessedRecord(CoNoticeEntity coNoticeEntity, String fileUrl) {
 
-        return false;
+        coNoticeEntity.setNoticeStatus("H");
+        coNoticeEntity.setNoticeUrl(fileUrl);
+
+        coNoticeRepo.save(coNoticeEntity);
+
+        return true;
     }
 
-    private String storePdfInS3(File pdfFile){
-        return "url";
+    private String storePdfInS3(File file){
+        PutObjectResult putObjectResult = s3.putObject("bucketName", file.getName(), file);
+        URL url = s3.getUrl("bucketName", file.getName());
+        return url.toExternalForm();
     }
 
     private File generateApprovedNotice(EligEntity elig){
