@@ -1,0 +1,31 @@
+<h2>View Accounts</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>             
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>SSN</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let acc of accounts">
+            <td>{{acc.userId}}</td>         
+            <td>{{acc.fullName}}</td>
+            <td>{{acc.email}}</td>
+            <td>{{acc.mobileNo}}</td>
+            <td>{{acc.gender}}</td>
+            <td>{{acc.ssn}}</td>
+            <td>
+                <button class="btn btn-info" (click)="editAccount(acc.userId)">Update</button>
+                &nbsp;
+                <button class="btn btn-danger" (click)="updateAccount(acc.userId, acc.activeSw)">Activate</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
