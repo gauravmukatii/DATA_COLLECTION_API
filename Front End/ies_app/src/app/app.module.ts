@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CreateaccountComponent } from './components/createaccount/createaccount.component';
 import { AccountlistComponent } from './components/accountlist/accountlist.component';
 import { AccounteditComponent } from './components/accountedit/accountedit.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AccounteditComponent } from './components/accountedit/accountedit.compo
     CreateaccountComponent,
     AccountlistComponent,
     AccounteditComponent,
+    ReportsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

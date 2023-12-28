@@ -19,13 +19,13 @@ export class CreateaccountComponent implements OnInit {
 
   onSubmit() {
     this.saveAccount();
+    this.msg = 'Account Created successfully';
   }
 
   saveAccount() {
     this.accountService.createAccount(this.account).subscribe(
       (response) => {
         console.log(response);
-        this.msg = 'Account Created successfully';
       },
       (error) => {
         console.error(error);

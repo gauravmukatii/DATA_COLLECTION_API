@@ -20,9 +20,17 @@
             <td>{{acc.gender}}</td>
             <td>{{acc.ssn}}</td>
             <td>
-                <button class="btn btn-info" (click)="editAccount(acc.userId)">Update</button>
+                <button class="btn btn-info" (click)="editAccount(acc.userId)">Edit</button>
                 &nbsp;
-                <button class="btn btn-danger" (click)="updateAccount(acc.userId, acc.activeSw)">Activate</button>
+
+                <ng-container *ngIf="acc.activeSw == 'N'; then activate; else deactivate">
+                </ng-container>
+                <ng-template #activate>
+                    <button class="btn btn-success" (click)="updateAccount(acc.userId, 'Y')">Activate</button>
+                </ng-template>
+                <ng-template #deactivate>
+                    <button class="btn btn-danger" (click)="updateAccount(acc.userId, 'N')">De-Activate</button>
+                </ng-template>
             </td>
         </tr>
     </tbody>
